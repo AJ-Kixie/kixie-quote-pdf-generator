@@ -3,781 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kixie Quote Generator</title>
+    <title>Kixie Quote Generator - Agent</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.4;
-            color: #333;
-            background: #f5f5f5;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            padding: 0;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        
-        .header {
-            background: white;
-            color: #111;
-            border-bottom: 3px solid #111;
-            padding: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        
-        .logo {
-            font-size: 48px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            color: #111;
-            margin-bottom: 10px;
-        }
-        
-        .logo .k-icon {
-            background: #F10606;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 32px;
-            font-weight: bold;
-            vertical-align: middle;
-        }
-        
-        .client-name-input {
-            margin-top: 15px;
-        }
-        
-        .client-name-input input {
-            background: white;
-            border: 1px solid #ccc;
-            color: #2d3748;
-            padding: 12px 16px;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 6px;
-            width: 100%;
-            max-width: 500px;
-        }
-        
-        .client-name-input input::placeholder {
-            color: #aaa;
-        }
-        
-        .client-name-input input:focus {
-            outline: none;
-            border-color: #111;
-        }
-        
-        .content {
-            padding: 40px;
-        }
-        
-        .products-section {
-            margin-bottom: 40px;
-        }
-        
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 20px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #F10606;
-            display: inline-block;
-        }
-        
-        .products-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .products-table th {
-            background: #2d3748;
-            color: white;
-            padding: 24px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .products-table th:first-child {
-            width: 70px;
-            text-align: center;
-        }
-        
-        .products-table th:last-child {
-            text-align: right;
-        }
-        
-        .products-table td {
-            padding: 22px 24px;
-            border-bottom: 1px solid #e2e8f0;
-            vertical-align: middle;
-            font-size: 16px;
-        }
-        
-        .products-table td:first-child {
-            text-align: center;
-        }
-        
-        .products-table td:last-child {
-            text-align: right;
-            font-weight: 700;
-            font-size: 19px;
-            color: #2d3748;
-        }
-        
-        .products-table tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-        
-        .products-table tr.hidden-row {
-            display: none;
-        }
-        
-        .product-name-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #2d3748;
-            background: white;
-        }
-        
-        .product-name-input:focus {
-            outline: none;
-            border-color: #F10606;
-            background: #fff5f5;
-        }
-        
-        input[type="number"] {
-            width: 100px;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            font-size: 16px;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        input[type="number"]:focus {
-            outline: none;
-            border-color: #F10606;
-        }
-        
-        input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #F10606;
-        }
-        
-        .price-input {
-            width: 110px;
-        }
-        
-        .controls-section {
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-            padding: 30px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .control-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .control-item {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-        }
-        
-        .control-item.hidden {
-            display: none;
-        }
-        
-        .control-item label {
-            display: block;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-        
-        .control-item select,
-        .control-item input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-        
-        .control-item select:focus,
-        .control-item input:focus {
-            outline: none;
-            border-color: #F10606;
-        }
-        
-        .pricing-section {
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-            padding: 30px;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .pricing-grid.no-discount {
-            grid-template-columns: 1fr;
-        }
-
-        .pricing-card {
-            background: white;
-            padding: 24px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-            border: 2px solid #F10606;
-            text-align: center;
-        }
-
-        .pricing-card.hidden {
-            display: none;
-        }
-        
-        .pricing-card.featured {
-            grid-column: 1 / -1;
-            max-width: 600px;
-            width: 100%;
-            margin: 10px auto 0;
-            padding: 32px;
-            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
-            border: 3px solid #F10606;
-            box-shadow: 0 6px 16px rgba(241, 6, 6, 0.2);
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .billing-period {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 8px;
-        }
-
-        .pricing-card.featured .billing-period {
-            font-size: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .discount {
-            color: #38a169;
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .pricing-card.featured .discount {
-            font-size: 20px;
-        }
-        
-        .total-price {
-            font-size: 24px;
-            font-weight: 700;
-            color: #F10606;
-        }
-
-        .pricing-card.featured .total-price {
-            font-size: 36px;
-            margin: 8px 0;
-        }
-        
-        .price-label {
-            font-size: 12px;
-            color: #718096;
-            margin-top: 8px;
-        }
-
-        .pricing-card.featured .price-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #2d3748;
-        }
-        
-        .details-section {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .detail-card {
-            background: white;
-            padding: 24px;
-            border-radius: 8px;
-            border-left: 4px solid #F10606;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-        }
-        
-        .detail-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #F10606;
-            margin-bottom: 12px;
-        }
-        
-        .detail-content {
-            color: #4a5568;
-            line-height: 1.6;
-        }
-        
-        .detail-content ul {
-            margin-left: 16px;
-        }
-        
-        .detail-content li {
-            margin-bottom: 8px;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .btn-primary {
-            background: white;
-            color: #111;
-            border: 2px solid #111;
-        }
-        
-        .btn-primary:hover {
-            background: #f0f0f0;
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: #111;
-            border: 2px solid #111;
-        }
-        
-        .btn-secondary:hover {
-            background: #f0f0f0;
-            transform: translateY(-2px);
-        }
-        
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            
-            .container {
-                box-shadow: none;
-                max-width: none;
-            }
-            
-            .action-buttons,
-            .controls-section {
-                display: none;
-            }
-            
-            input[type="number"],
-            input[type="checkbox"],
-            input[type="text"] {
-                border: none;
-                background: transparent;
-            }
-            
-            .product-name-input {
-                font-weight: 600;
-            }
-            
-            input[type="checkbox"] {
-                display: none;
-            }
-            
-            .products-table th:first-child,
-            .products-table td:first-child {
-                display: none;
-            }
-            
-            .client-name-input input {
-                border: none;
-                background: transparent;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; padding: 20px; min-height: 100vh; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .header { background: white; color: #111; border-bottom: 3px solid #111; padding: 40px; display: flex; justify-content: space-between; align-items: flex-start; }
+        .logo { font-size: 48px; font-weight: 900; letter-spacing: 2px; color: #111; }
+        .logo .k-icon { background: #F10606; color: white; width: 60px; height: 60px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 32px; font-weight: bold; vertical-align: middle; }
+        .subtitle { font-size: 18px; margin-top: 15px; color: #555; }
+        .bid-input-container { background: white; border: 2px solid #111; border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
+        .bid-label { font-weight: 600; font-size: 16px; color: #111; }
+        .bid-input { background: white; border: 1px solid #ccc; padding: 8px 12px; border-radius: 4px; font-size: 18px; font-weight: 600; color: #2d3748; width: 100px; text-align: center; }
+        .bid-input:focus { outline: none; border-color: #111; }
+        .content { padding: 40px; }
+        .section { background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); padding: 30px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
+        .section-title { font-size: 20px; font-weight: 600; color: #2d3748; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #F10606; display: inline-block; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .input-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+        .input-card label { display: block; font-weight: 600; color: #2d3748; margin-bottom: 8px; font-size: 14px; }
+        .input-card input, .input-card select { width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 16px; }
+        .input-card input:focus, .input-card select:focus { outline: none; border-color: #111; }
+        .products-table { width: 100%; border-collapse: collapse; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.07); border-radius: 8px; overflow: hidden; }
+        .products-table th { background: #2d3748; color: white; padding: 24px; text-align: left; font-weight: 600; font-size: 18px; }
+        .products-table th:first-child { text-align: center; }
+        .products-table th:last-child { text-align: right; }
+        .products-table td { padding: 22px 24px; border-bottom: 1px solid #e2e8f0; font-size: 16px; }
+        .products-table tr:nth-child(even) { background-color: #f8fafc; }
+        .products-table tr.hidden { display: none; }
+        .products-table td:first-child { text-align: center; }
+        .products-table td:last-child { text-align: right; font-weight: 700; font-size: 19px; color: #2d3748; }
+        input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; accent-color: #F10606; }
+        input[type="text"].product-input, input[type="number"] { padding: 12px; border: 1px solid #e2e8f0; border-radius: 4px; font-size: 16px; font-weight: 600; }
+        input[type="number"] { width: 100px; text-align: center; }
+        input[type="text"].product-input { width: 100%; }
+        .price-input { width: 110px; }
+        .billing-summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+        .billing-summary.no-discount { grid-template-columns: 1fr; }
+        .billing-card { background: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; text-align: center; }
+        .billing-card.hidden { display: none; }
+        .billing-card.featured { grid-column: 1 / -1; max-width: 600px; margin: 10px auto 0; padding: 32px; background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%); border: 3px solid #F10606; box-shadow: 0 6px 16px rgba(241,6,6,0.2); }
+        .billing-period { font-size: 16px; font-weight: 600; color: #2d3748; margin-bottom: 8px; }
+        .billing-card.featured .billing-period { font-size: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .discount-text { color: #38a169; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+        .billing-card.featured .discount-text { font-size: 20px; }
+        .total-price { font-size: 24px; font-weight: 700; color: #F10606; }
+        .billing-card.featured .total-price { font-size: 36px; margin: 8px 0; }
+        .price-label { font-size: 12px; color: #718096; margin-top: 8px; }
+        .billing-card.featured .price-label { font-size: 14px; font-weight: 600; color: #2d3748; }
+        .generate-section { background: #f7f7f7; padding: 40px; border-radius: 12px; margin-bottom: 30px; border: 2px solid #111; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; }
+        .generate-section h2 { font-size: 24px; font-weight: 700; color: #111; margin-bottom: 10px; }
+        .generate-section p { color: #4a5568; margin-bottom: 30px; font-size: 16px; }
+        .btn-generate { padding: 18px 40px; background: white; color: #111; border: 2px solid #111; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.08); transition: transform 0.2s, background 0.2s; }
+        .btn-generate:hover { background: #f0f0f0; transform: translateY(-2px); }
+        .btn-generate:disabled { background: white; color: #bbb; border-color: #bbb; cursor: not-allowed; transform: none; }
+        .error-text { color: #e53e3e; font-size: 14px; font-weight: 600; margin-top: 15px; }
+        .link-box { width: 100%; max-width: 700px; margin: 20px auto 0; }
+        .link-container { background: white; padding: 20px; border-radius: 8px; border: 2px solid #e2e8f0; }
+        .link-container label { display: block; font-weight: 600; color: #2d3748; margin-bottom: 10px; font-size: 14px; }
+        .link-display { padding: 15px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; word-break: break-all; cursor: pointer; transition: background 0.2s; }
+        .link-display:hover { background: #edf2f7; }
+        .copied-message { color: #38a169; font-size: 14px; font-weight: 600; margin-top: 10px; text-align: center; }
+        .instructions { margin-top: 20px; padding: 20px; background: #edf2f7; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .instructions h3 { font-size: 16px; font-weight: 600; color: #2d3748; margin-bottom: 10px; }
+        .instructions ol { margin-left: 20px; color: #4a5568; line-height: 1.8; }
+        .instructions strong { color: #2d3748; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <span class="k-icon">K</span>KIXIE
-            </div>
-            <div class="client-name-input">
-                <input type="text" id="clientName" placeholder="Enter Company Name">
-            </div>
+<div class="container">
+    <div class="header">
+        <div class="header-left">
+            <div class="logo"><span class="k-icon">K</span>KIXIE</div>
+            <div class="subtitle">Agent Quote Generator</div>
         </div>
-        
-        <div class="content">
-            <div class="controls-section">
-                <h2 class="section-title">Quote Settings</h2>
-                <div class="control-group">
-                    <div class="control-item">
-                        <label for="billingCycle">Billing Cycle</label>
-                        <select id="billingCycle" onchange="calculateTotals()">
-                            <option value="monthly">Monthly Billing</option>
-                            <option value="quarterly">Quarterly Billing</option>
-                            <option value="semi-annual">Semi-Annual Billing</option>
-                            <option value="annual">Annual Billing</option>
-                        </select>
-                    </div>
-                    <div class="control-item" id="discountControl">
-                        <label for="discountPercent">Discount Percentage</label>
-                        <input type="number" id="discountPercent" value="0" min="0" max="100" step="1" oninput="calculateTotals()" placeholder="0">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="products-section">
-                <h2 class="section-title">Products & Services</h2>
-                
-                <table class="products-table" id="productsTable">
-                    <thead>
-                        <tr>
-                            <th>✓</th>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Unit Cost</th>
-                            <th>Total Cost</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-product="basic">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="Basic (Admin)"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="15" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                        <tr data-product="professional">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="Professional Plan - Unlimited Minutes"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="95" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                        <tr data-product="single-line">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="Single Line Powerdialer - Unlimited Minutes"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="145" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                        <tr data-product="multi-line">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="Multi Line Powerdialer - Unlimited Minutes"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="185" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                        <tr data-product="ai-detect">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="AI Human Detect - Unlimited Minutes"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="215" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                        <tr data-product="connection-boost">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="Connection Boost"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="50" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                        <tr data-product="conversational-intel">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="Conversational Intelligence"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="50" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                        <tr data-product="dnc">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="DNC Compliance"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="20" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                        <tr data-product="connection-boost-premium" data-no-discount="true">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="Connection Boost Premium (Private Number Pool)"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="500" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                        <tr data-product="phone-numbers" data-no-discount="true">
-                            <td><input type="checkbox" class="product-checkbox" checked onchange="calculateTotals()"></td>
-                            <td><input type="text" class="product-name-input" value="Phone Numbers"></td>
-                            <td><input type="number" class="qty" value="0" min="0" oninput="calculateTotals()"></td>
-                            <td>$<input type="number" class="price-input unit-price" value="5" min="0" step="0.01" oninput="calculateTotals()"></td>
-                            <td class="line-total">$0.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="pricing-section">
-                <h2 class="section-title">Billing Summary</h2>
-                
-                <div class="pricing-grid" id="pricingGrid">
-                    <div class="pricing-card hidden" id="monthlySubtotalCard">
-                        <div class="billing-period">Monthly Subtotal</div>
-                        <div class="discount" style="color:#555;">Before Discount</div>
-                        <div class="total-price" style="color:#111;" id="monthlySubtotal">$0.00</div>
-                        <div class="price-label">per month</div>
-                    </div>
-                    <div class="pricing-card hidden" id="monthlyDiscountedCard">
-                        <div class="billing-period">Monthly Cost with Discount</div>
-                        <div class="discount" id="savingsText">0% Savings</div>
-                        <div class="total-price" id="monthlyDiscounted">$0.00</div>
-                        <div class="price-label">per month</div>
-                    </div>
-                    <div class="pricing-card featured">
-                        <div class="billing-period" id="finalBillingLabel">Monthly Payment</div>
-                        <div class="total-price" id="finalTotal">$0.00</div>
-                        <div class="price-label" id="finalLabel">per month</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="details-section">
-                <div class="detail-card">
-                    <h3 class="detail-title">Unlimited Talk Time Coverage</h3>
-                    <div class="detail-content">
-                        <ul>
-                            <li>Complete coverage for U.S. and Canada calls</li>
-                            <li>Includes select UK landlines</li>
-                            <li>All other landlines at $0.02 per minute</li>
-                            <li>International calls billed separately to Reserve Balance</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="detail-card">
-                    <h3 class="detail-title">Reserve Balance & SMS</h3>
-                    <div class="detail-content">
-                        <p><strong>Reserve Balance:</strong> Prepaid amount for international calls and SMS, acts as security deposit. Auto-recharge when below $50.</p>
-                        <br>
-                        <p><strong>SMS Rates:</strong></p>
-                        <ul>
-                            <li>Incoming SMS: Free/Unlimited</li>
-                            <li>Outbound SMS: $0.011 - $0.045 per message</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="detail-card">
-                    <h3 class="detail-title">Terms & Conditions</h3>
-                    <div class="detail-content">
-                        <p><strong>Cancellation Policy:</strong> No refunds for processed subscription fees. Cancel at least one week before term ends to avoid next billing cycle.</p>
-                        <br>
-                        <p>By subscribing, you commit to the full contract term.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="action-buttons">
-                <button class="btn btn-primary" onclick="window.print()">Save as PDF</button>
-                <button class="btn btn-secondary" onclick="undoLastChange()">↶ Undo</button>
-                <button class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+        <div class="header-right">
+            <div class="bid-input-container">
+                <span class="bid-label">BID: *</span>
+                <input type="text" id="bidNumber" class="bid-input" placeholder="00000" maxlength="5" pattern="[0-9]*" required>
             </div>
         </div>
     </div>
 
-    <script>
-        var undoStack = [];
-        var maxUndoSteps = 20;
-        
-        function saveState() {
-            var state = {
-                clientName: document.getElementById('clientName').value,
-                billingCycle: document.getElementById('billingCycle').value,
-                discount: document.getElementById('discountPercent').value,
-                products: []
-            };
-            
-            var rows = document.querySelectorAll('#productsTable tbody tr[data-product]');
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                state.products.push({
-                    checked: row.querySelector('.product-checkbox').checked,
-                    name: row.querySelector('.product-name-input').value,
-                    qty: row.querySelector('.qty').value,
-                    price: row.querySelector('.unit-price').value
-                });
-            }
-            
-            undoStack.push(JSON.parse(JSON.stringify(state)));
-            if (undoStack.length > maxUndoSteps) undoStack.shift();
-        }
-        
-        function undoLastChange() {
-            if (undoStack.length <= 1) { alert('Nothing to undo!'); return; }
-            undoStack.pop();
-            var prev = undoStack[undoStack.length - 1];
-            document.getElementById('clientName').value = prev.clientName;
-            document.getElementById('billingCycle').value = prev.billingCycle;
-            document.getElementById('discountPercent').value = prev.discount;
-            var rows = document.querySelectorAll('#productsTable tbody tr[data-product]');
-            for (var i = 0; i < rows.length; i++) {
-                var p = prev.products[i];
-                rows[i].querySelector('.product-checkbox').checked = p.checked;
-                rows[i].querySelector('.product-name-input').value = p.name;
-                rows[i].querySelector('.qty').value = p.qty;
-                rows[i].querySelector('.unit-price').value = p.price;
-            }
-            calculateTotals();
-        }
-        
-        function formatCurrency(num) {
-            return '$' + num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-        }
-        
-        function calculateTotals() {
-            saveState();
-            
-            var rows = document.querySelectorAll('#productsTable tbody tr[data-product]');
-            var monthlySubtotal = 0;
-            var monthlyNoDiscountTotal = 0;
-            
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                var isChecked = row.querySelector('.product-checkbox').checked;
-                if (!isChecked) { row.classList.add('hidden-row'); continue; }
-                row.classList.remove('hidden-row');
-                var qty = parseFloat(row.querySelector('.qty').value) || 0;
-                var unitPrice = parseFloat(row.querySelector('.unit-price').value) || 0;
-                var lineTotal = qty * unitPrice;
-                row.querySelector('.line-total').textContent = formatCurrency(lineTotal);
-                monthlySubtotal += lineTotal;
-                if (row.getAttribute('data-no-discount') === 'true') monthlyNoDiscountTotal += lineTotal;
-            }
-            
-            var discountPercent = parseFloat(document.getElementById('discountPercent').value) || 0;
-            var monthlyDiscountableSubtotal = monthlySubtotal - monthlyNoDiscountTotal;
-            var monthlyDiscounted = (monthlyDiscountableSubtotal * (1 - discountPercent / 100)) + monthlyNoDiscountTotal;
-            
-            var billingCycle = document.getElementById('billingCycle').value;
-            var multiplier, billingLabel, finalLabel;
-            
-            if (billingCycle === 'monthly') { multiplier = 1; billingLabel = 'Monthly Payment'; finalLabel = 'per month'; }
-            else if (billingCycle === 'quarterly') { multiplier = 3; billingLabel = 'Quarterly Prepayment'; finalLabel = 'paid quarterly'; }
-            else if (billingCycle === 'semi-annual') { multiplier = 6; billingLabel = 'Semi-Annual Prepayment'; finalLabel = 'paid semi-annually'; }
-            else { multiplier = 12; billingLabel = 'Annual Prepayment'; finalLabel = 'paid annually'; }
-            
-            var finalTotal = monthlyDiscounted * multiplier;
+    <div class="content">
+        <div class="section">
+            <h2 class="section-title">Kixie AE & Customer Information</h2>
+            <div class="input-grid">
+                <div class="input-card">
+                    <label>Your Name (Kixie AE)</label>
+                    <input type="text" id="agentName" placeholder="Enter your name">
+                </div>
+                <div class="input-card">
+                    <label>Your Email (Kixie AE)</label>
+                    <input type="email" id="agentEmail" placeholder="your.email@kixie.com">
+                </div>
+                <div class="input-card">
+                    <label>Customer Company Name</label>
+                    <input type="text" id="clientName" placeholder="Enter company name">
+                </div>
+            </div>
+        </div>
 
-            var subtotalCard = document.getElementById('monthlySubtotalCard');
-            var discountedCard = document.getElementById('monthlyDiscountedCard');
-            var pricingGrid = document.getElementById('pricingGrid');
+        <div class="section">
+            <h2 class="section-title">Quote Settings</h2>
+            <div class="input-grid">
+                <div class="input-card">
+                    <label>Billing Cycle</label>
+                    <select id="billingCycle" onchange="calculateTotals()">
+                        <option value="monthly">Monthly Billing</option>
+                        <option value="quarterly">Quarterly Billing</option>
+                        <option value="semi-annual">Semi-Annual Billing</option>
+                        <option value="annual">Annual Billing</option>
+                    </select>
+                </div>
+                <div class="input-card">
+                    <label>Discount Percentage</label>
+                    <input type="number" id="discountPercent" value="0" min="0" max="100" oninput="calculateTotals()" placeholder="0">
+                </div>
+            </div>
+        </div>
 
-            if (discountPercent > 0) {
-                subtotalCard.classList.remove('hidden');
-                discountedCard.classList.remove('hidden');
-                pricingGrid.classList.remove('no-discount');
-            } else {
-                subtotalCard.classList.add('hidden');
-                discountedCard.classList.add('hidden');
-                pricingGrid.classList.add('no-discount');
-            }
+        <div style="margin-bottom: 40px;">
+            <h2 class="section-title">Products & Services</h2>
+            <table class="products-table" id="productsTable">
+                <thead>
+                    <tr>
+                        <th>✓</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Unit Cost</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody id="productsBody"></tbody>
+            </table>
+        </div>
 
-            document.getElementById('monthlySubtotal').textContent = formatCurrency(monthlySubtotal);
-            document.getElementById('monthlyDiscounted').textContent = formatCurrency(monthlyDiscounted);
-            document.getElementById('savingsText').textContent = discountPercent + '% Savings';
-            document.getElementById('finalTotal').textContent = formatCurrency(finalTotal);
-            document.getElementById('finalBillingLabel').textContent = billingLabel;
-            document.getElementById('finalLabel').textContent = finalLabel;
+        <div class="section">
+            <h2 class="section-title">Billing Summary</h2>
+            <div class="billing-summary" id="billingSummary">
+                <div class="billing-card" id="monthlySubtotalCard">
+                    <div class="billing-period">Monthly Subtotal</div>
+                    <div class="discount-text" style="color:#555;">Before Discount</div>
+                    <div class="total-price" style="color:#111;" id="monthlySubtotal">$0.00</div>
+                    <div class="price-label">per month</div>
+                </div>
+                <div class="billing-card" id="monthlyDiscountedCard">
+                    <div class="billing-period">Monthly Cost with Discount</div>
+                    <div class="discount-text" style="color:#555;" id="savingsText">0% Savings</div>
+                    <div class="total-price" style="color:#111;" id="monthlyDiscounted">$0.00</div>
+                    <div class="price-label">per month</div>
+                </div>
+                <div class="billing-card featured">
+                    <div class="billing-period" id="finalBillingLabel">Total Amount</div>
+                    <div class="discount-text" style="color:#555;" id="annualSavings">Save $0 Total</div>
+                    <div class="total-price" style="color:#111;" id="finalTotal">$0.00</div>
+                    <div class="price-label" id="finalLabel">total amount</div>
+                </div>
+            </div>
+        </div>
 
-        }
-        
-        function resetForm() {
-            if (!confirm('Are you sure you want to reset the entire form?')) return;
-            document.getElementById('clientName').value = '';
-            document.getElementById('billingCycle').value = 'monthly';
-            document.getElementById('discountPercent').value = '0';
-            var qtyInputs = document.querySelectorAll('.qty');
-            for (var i = 0; i < qtyInputs.length; i++) qtyInputs[i].value = '0';
-            var checkboxes = document.querySelectorAll('.product-checkbox');
-            for (var i = 0; i < checkboxes.length; i++) checkboxes[i].checked = true;
-            var defaultNames = ['Basic (Admin)','Professional Plan - Unlimited Minutes','Single Line Powerdialer - Unlimited Minutes','Multi Line Powerdialer - Unlimited Minutes','AI Human Detect - Unlimited Minutes','Connection Boost','Conversational Intelligence','DNC Compliance','Phone Numbers'];
-            var productNames = document.querySelectorAll('.product-name-input');
-            for (var i = 0; i < productNames.length; i++) productNames[i].value = defaultNames[i];
-            var defaultPrices = [15, 95, 145, 185, 215, 50, 50, 20, 5];
-            var priceInputs = document.querySelectorAll('.unit-price');
-            for (var i = 0; i < priceInputs.length; i++) priceInputs[i].value = defaultPrices[i];
-            var rows = document.querySelectorAll('#productsTable tbody tr[data-product]');
-            for (var i = 0; i < rows.length; i++) rows[i].classList.remove('hidden-row');
-            calculateTotals();
-        }
-        
-        saveState();
+        <div class="generate-section">
+            <h2>Ready to Send to Customer?</h2>
+            <p>Generate a unique link for your client to review, sign, and submit this quote.</p>
+            <button class="btn-generate" id="generateBtn" onclick="generateClientLink()">Generate Client Link</button>
+            <div id="errorMessage" class="error-text" style="display:none;">Please fill in Agent Name, Agent Email, Client Company Name, and BID Number above</div>
+            <div id="linkBox" class="link-box" style="display:none;">
+                <div class="link-container">
+                                            <label>Customer Link (Click to Copy)</label>
+                    <div class="link-display" id="generatedLink" onclick="copyLink()"></div>
+                    <div id="copiedMessage" class="copied-message" style="display:none;">✓ Link copied to clipboard!</div>
+                </div>
+                <div class="instructions">
+                    <h3>📧 Next Steps:</h3>
+                    <ol>
+                        <li>Copy the link above</li>
+                        <li>Send it to your client via email or message</li>
+                        <li>Client will review, sign, and submit the quote</li>
+                        <li>You'll receive the signed quote at: <strong id="confirmEmail"></strong></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const products = [
+        { id: 'basic', name: 'Basic (Admin)', qty: 0, price: 15, noDiscount: false },
+        { id: 'professional', name: 'Professional Plan - Unlimited Minutes', qty: 0, price: 95, noDiscount: false },
+        { id: 'single-line', name: 'Single Line Powerdialer - Unlimited Minutes', qty: 0, price: 145, noDiscount: false },
+        { id: 'multi-line', name: 'Multi Line Powerdialer - Unlimited Minutes', qty: 0, price: 185, noDiscount: false },
+        { id: 'ai-detect', name: 'AI Human Detect - Unlimited Minutes', qty: 0, price: 215, noDiscount: false },
+                    { id: 'connection-boost', name: 'Connection Boost', qty: 0, price: 50, noDiscount: false },
+        { id: 'conversational-intel', name: 'Conversational Intelligence', qty: 0, price: 50, noDiscount: false },
+        { id: 'dnc', name: 'DNC Compliance', qty: 0, price: 20, noDiscount: false },
+                    { id: 'connection-boost-premium', name: 'Connection Boost Premium (Private Number Pool)', qty: 0, price: 500, noDiscount: true },
+            { id: 'phone-numbers', name: 'Phone Numbers', qty: 0, price: 5, noDiscount: true, alwaysMonthly: true }
+    ];
+
+    function fmt(n) { return '$' + n.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); }
+
+    function renderProducts() {
+        const tbody = document.getElementById('productsBody');
+        tbody.innerHTML = '';
+        products.forEach((p, i) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><input type="checkbox" checked onchange="toggleProduct(${i})"></td>
+                <td><input type="text" class="product-input" value="${p.name}" onchange="updateProductName(${i}, this.value)"></td>
+                <td><input type="number" value="${p.qty}" min="0" onchange="updateProductQty(${i}, this.value)"></td>
+                <td>$<input type="number" class="price-input" value="${p.price}" min="0" step="0.01" onchange="updateProductPrice(${i}, this.value)"></td>
+                <td class="line-total">${fmt(p.qty * p.price)}</td>`;
+            tbody.appendChild(row);
+        });
+    }
+
+    function toggleProduct(i) {
+        document.getElementById('productsBody').children[i].classList.toggle('hidden');
         calculateTotals();
-    </script>
+    }
+
+    function updateProductName(i, v) { products[i].name = v; }
+    function updateProductQty(i, v) { products[i].qty = parseFloat(v) || 0; calculateTotals(); }
+    function updateProductPrice(i, v) { products[i].price = parseFloat(v) || 0; calculateTotals(); }
+
+    function calculateTotals() {
+        const cycle = document.getElementById('billingCycle').value;
+        const mult = { monthly: 1, quarterly: 3, 'semi-annual': 6, annual: 12 }[cycle];
+        let sub = 0, noDisc = 0, alwaysMonthlyTotal = 0;
+        const rows = document.getElementById('productsBody').children;
+        products.forEach((p, i) => {
+            const row = rows[i];
+            if (!row.classList.contains('hidden')) {
+                const lt = p.qty * p.price;
+                row.querySelector('.line-total').textContent = fmt(lt);
+                sub += lt;
+                if (p.noDiscount) noDisc += lt;
+                if (p.alwaysMonthly) alwaysMonthlyTotal += lt;
+            }
+            // Update monthly note visibility
+            const noteEl = document.getElementById(`monthly-note-${i}`);
+            if (noteEl) {
+                noteEl.innerHTML = p.alwaysMonthly && cycle !== 'monthly' ? ' <span style="font-size:11px;color:#888;font-weight:400;">(billed monthly)</span>' : '';
+            }
+        });
+
+        const disc = parseFloat(document.getElementById('discountPercent').value) || 0;
+        // alwaysMonthly items: no discount, no multiplier. Others: discount applied, then multiplier.
+        const discountableMonthly = sub - noDisc;
+        const nonMonthlyNoDisc = noDisc - alwaysMonthlyTotal; // noDiscount but subject to multiplier
+        const monthlyDiscFixed = (discountableMonthly * (1 - disc / 100)) + nonMonthlyNoDisc;
+        const final = (monthlyDiscFixed * mult) + alwaysMonthlyTotal;
+        const fullTotal = ((sub - alwaysMonthlyTotal) * mult) + alwaysMonthlyTotal;
+        const savings = fullTotal - final;
+        const monthlyDisc = (discountableMonthly * (1 - disc / 100)) + noDisc;
+
+        document.getElementById('monthlySubtotal').textContent = fmt(sub);
+        document.getElementById('monthlyDiscounted').textContent = fmt(monthlyDisc);
+        document.getElementById('savingsText').textContent = disc + '% Savings';
+        document.getElementById('finalTotal').textContent = fmt(final);
+        document.getElementById('annualSavings').textContent = disc > 0 ? 'Save ' + fmt(savings) + ' Total' : 'No Discount Applied';
+        document.getElementById('finalBillingLabel').textContent = { monthly: 'Monthly Payment', quarterly: 'Quarterly Prepayment', 'semi-annual': 'Semi-Annual Prepayment', annual: 'Annual Prepayment' }[cycle];
+        document.getElementById('finalLabel').textContent = { monthly: 'per month', quarterly: 'paid quarterly', 'semi-annual': 'paid semi-annually', annual: 'paid annually' }[cycle];
+
+        const bs = document.getElementById('billingSummary');
+        const sc = document.getElementById('monthlySubtotalCard');
+        const dc = document.getElementById('monthlyDiscountedCard');
+        if (disc > 0) { bs.classList.remove('no-discount'); sc.classList.remove('hidden'); dc.classList.remove('hidden'); }
+        else { bs.classList.add('no-discount'); sc.classList.add('hidden'); dc.classList.add('hidden'); }
+    }
+
+    function generateClientLink() {
+        const clientName = document.getElementById('clientName').value.trim();
+        const agentEmail = document.getElementById('agentEmail').value.trim();
+        const agentName = document.getElementById('agentName').value.trim();
+        const bidNumber = document.getElementById('bidNumber').value.trim();
+
+        if (!clientName || !agentEmail || !agentName || !bidNumber) {
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('linkBox').style.display = 'none';
+            return;
+        }
+        document.getElementById('errorMessage').style.display = 'none';
+
+        const rows = document.getElementById('productsBody').children;
+        const selected = [];
+        products.forEach((p, i) => {
+            if (!rows[i].classList.contains('hidden') && p.qty > 0) selected.push(p);
+        });
+
+        const quoteData = {
+            clientName, agentEmail, agentName,
+            billingCycle: document.getElementById('billingCycle').value,
+            discountPercent: parseFloat(document.getElementById('discountPercent').value) || 0,
+            products: selected, bidNumber,
+            timestamp: new Date().toISOString()
+        };
+
+        const encoded = btoa(JSON.stringify(quoteData));
+        const id = 'Q' + Date.now().toString(36).toUpperCase();
+        const link = `https://marvelous-banoffee-ab3253.netlify.app/?mode=client&id=${id}&data=${encoded}`;
+
+        document.getElementById('generatedLink').textContent = link;
+        document.getElementById('confirmEmail').textContent = agentEmail;
+        document.getElementById('linkBox').style.display = 'block';
+    }
+
+    function copyLink() {
+        navigator.clipboard.writeText(document.getElementById('generatedLink').textContent).then(() => {
+            const msg = document.getElementById('copiedMessage');
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 3000);
+        });
+    }
+
+    renderProducts();
+    calculateTotals();
+</script>
 </body>
 </html>
