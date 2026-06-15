@@ -731,7 +731,15 @@
             else if (billingCycle === 'semi-annual') { multiplier = 6; billingLabel = 'Semi-Annual Prepayment'; finalLabel = 'paid semi-annually'; }
             else { multiplier = 12; billingLabel = 'Annual Prepayment'; finalLabel = 'paid annually'; }
             
-            var finalTotal = monthlyDiscounted * multiplier;
+            // Phone numbers are always billed monthly regardless of cycle
+            var phoneNumbersTotal = 0;
+            var phoneRow = document.querySelector('#productsTable tbody tr[data-product="phone-numbers"]');
+            if (phoneRow && !phoneRow.classList.contains('hidden-row') && phoneRow.querySelector('.product-checkbox').checked) {
+                var phoneQty = parseFloat(phoneRow.querySelector('.qty').value) || 0;
+                var phonePrice = parseFloat(phoneRow.querySelector('.unit-price').value) || 0;
+                phoneNumbersTotal = phoneQty * phonePrice;
+            }
+            var finalTotal = ((monthlyDiscounted - phoneNumbersTotal) * multiplier) + phoneNumbersTotal;
 
             var subtotalCard = document.getElementById('monthlySubtotalCard');
             var discountedCard = document.getElementById('monthlyDiscountedCard');
